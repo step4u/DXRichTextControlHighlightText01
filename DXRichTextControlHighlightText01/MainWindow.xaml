@@ -4,8 +4,97 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+    xmlns:dxrec="clr-namespace:DevExpress.Xpf.RichEdit.Controls.Internal;assembly=DevExpress.Xpf.RichEdit.v20.2"
     xmlns:dxret="http://schemas.devexpress.com/winfx/2008/xaml/richedit/themekeys"
     Title="MainWindow" Height="450" Width="800">
+    <dx:ThemedWindow.Resources>
+        
+        <!--BackgroundControlTemplate-->
+        <ControlTemplate x:Key="{dxret:RichEditControlThemeKey ResourceKey=BackgroundControlTemplate}" TargetType="{x:Type ContentControl}">
+            <Border>
+                <Border.Background>
+                    <LinearGradientBrush SpreadMethod="Pad">
+                        <GradientStop Color="White" Offset="0" />
+                        <GradientStop Color="Blue" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentPresenter SnapsToDevicePixels="True" UseLayoutRounding="True" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+            </Border>
+        </ControlTemplate>
+
+        <!--BorderControlTemplate-->
+        <ControlTemplate x:Key="{dxret:RichEditControlThemeKey ResourceKey=BorderControlTemplate}" TargetType="{x:Type ContentControl}">
+            <Border Background="DarkBlue" CornerRadius="5" Padding="1">
+                <Border CornerRadius="15" Padding="4" AllowDrop="False" Background="Yellow">
+                    <Border CornerRadius="3" Padding="2" Background="Red">
+                        <ContentPresenter SnapsToDevicePixels="True" UseLayoutRounding="True" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </Border>
+                </Border>
+            </Border>
+        </ControlTemplate>
+
+        <!--PrintLayoutViewPageBorderControlTemplate-->
+        <ControlTemplate x:Key="{dxret:RichEditControlThemeKey ResourceKey=PrintLayoutViewPageBorderControlTemplate}" TargetType="{x:Type ContentControl}">
+            <Grid>
+                <Border Background="LightGray" CornerRadius="2" Margin="1">
+                    <ContentPresenter SnapsToDevicePixels="True" UseLayoutRounding="True" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+
+        <!--SelectionPathStyle-->
+        <Style x:Key="{dxret:RichEditControlThemeKey ResourceKey=SelectionPathStyle}" TargetType="{x:Type Path}">
+            <Setter Property="Stroke" Value="#7F4776B6" />
+            <Setter Property="StrokeThickness" Value="3" />
+            <Setter Property="Fill" Value="Yellow" />
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+
+        <!--ResizePicturePlaceholderRectangleStyle-->
+        <Style x:Key="{dxret:RichEditControlThemeKey ResourceKey=ResizePicturePlaceholderRectangleStyle}" TargetType="{x:Type Rectangle}">
+            <Setter Property="StrokeDashArray" Value="2,2" />
+            <Setter Property="Stroke" Value="#7F4776B6" />
+            <Setter Property="StrokeThickness" Value="5" />
+            <Setter Property="Fill" Value="Yellow" />
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+
+        <!--Ruler Styles/Templates-->
+        <ControlTemplate x:Key="{dxret:RichEditRulerThemeKey ResourceKey=ActiveAreaControlTemplate}" TargetType="dxrec:RulerActiveAreaControl">
+            <Border BorderThickness="2" Background="White">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Red" Offset="0" />
+                        <GradientStop Color="Blue" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="{dxret:RichEditRulerThemeKey ResourceKey=HorizontalSpaceAreaControlTemplate}" TargetType="dxrec:HorizontalRulerSpaceAreaControl">
+            <Border Background="Black" BorderThickness="1" Padding="2" CornerRadius="6">
+                <Border Background="LightYellow" CornerRadius="4" />
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="{dxret:RichEditRulerThemeKey ResourceKey=VerticalSpaceAreaControlTemplate}" TargetType="dxrec:VerticalRulerSpaceAreaControl">
+            <Border Background="Black" BorderThickness="1" Padding="2" CornerRadius="6">
+                <Border Background="LightYellow" CornerRadius="4" />
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="{dxret:RichEditRulerThemeKey ResourceKey=HorizontalRulerBackgroundControlTemplate}" TargetType="{x:Type ContentControl}">
+            <Border x:Name="ruler_horz" BorderThickness="0,0,0,1" BorderBrush="#7F45639B" Margin="0,-6,0,6">
+                <Rectangle Fill="Red" Opacity="0.3" />
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="{dxret:RichEditRulerThemeKey ResourceKey=VerticalRulerBackgroundControlTemplate}" TargetType="{x:Type ContentControl}">
+            <Border x:Name="ruler_vert" BorderThickness="0,0,1,0" BorderBrush="#7F45639B" Margin="-5,0,5,0">
+                <Rectangle Fill="Blue" Opacity="0.3" />
+            </Border>
+        </ControlTemplate>
+    </dx:ThemedWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="43"/>
@@ -16,13 +105,7 @@
         <Button x:Name="btnFind" Content="Find" HorizontalAlignment="Left" Margin="236,10,0,0" VerticalAlignment="Top" Width="75" Click="btnSearch_Click"/>
         <Button x:Name="btnPrev" Content="Prev" HorizontalAlignment="Left" Margin="316,10,0,0" VerticalAlignment="Top" Width="75" Click="btnPrev_Click"/>
         <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="396,10,0,0" VerticalAlignment="Top" Width="75" Click="btnNext_Click"/>
-        <dxre:RichEditControl x:Name="editor" CommandBarStyle="Empty" ActiveViewType="Simple" HorizontalScrollBarVisibility="Collapsed" Grid.Row="1">
-            <dxre:RichEditControl.Resources>
-                <Style x:Key="{dxret:RichEditControlThemeKey ResourceKey=SelectionPathStyle, ThemeName=Office2019White}" TargetType="{x:Type Path}">
-                    <Setter Property="Fill" Value="Blue" />
-                    <Setter Property="Opacity" Value="0.3"/>
-                </Style>
-            </dxre:RichEditControl.Resources>
-        </dxre:RichEditControl>
+        <!--<dxre:RichEditControl x:Name="editor" CommandBarStyle="Empty" ActiveViewType="Simple" HorizontalScrollBarVisibility="Collapsed" Grid.Row="1"/>-->
+        <dxre:RichEditControl x:Name="editor" Grid.Row="1"/>
     </Grid>
 </dx:ThemedWindow>

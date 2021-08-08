@@ -17,12 +17,15 @@ namespace DXRichTextControlHighlightText01
             InitializeComponent();
 
             this.Loaded += MainWindow_Loaded;
+
+            editor.ApplyTemplate();
+            // editor.ActiveView.ZoomFactor = 0.5f;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            editor.HorizontalRulerOptions = new DevExpress.Xpf.RichEdit.DXRichEditHorizontalRulerOptions() { Visibility = RichEditRulerVisibility.Hidden };
-            editor.VerticalRulerOptions = new DevExpress.Xpf.RichEdit.DXRichEditVerticalRulerOptions { Visibility = RichEditRulerVisibility.Hidden };
+            // editor.HorizontalRulerOptions = new DevExpress.Xpf.RichEdit.DXRichEditHorizontalRulerOptions() { Visibility = RichEditRulerVisibility.Hidden };
+            // editor.VerticalRulerOptions = new DevExpress.Xpf.RichEdit.DXRichEditVerticalRulerOptions { Visibility = RichEditRulerVisibility.Hidden };
         }
 
         private void btnOpen_Click(object sender, RoutedEventArgs e)
